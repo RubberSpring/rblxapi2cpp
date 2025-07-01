@@ -1,0 +1,8 @@
+class {{classname}}
+{
+public:
+{% if constrs is not none %}{% for constr in constrs %}    {{classname}}({% if constr.parameters is not none %}{% if constr.parameters|length == 1%}{{constr.parameters[0].type|luatocpp}} {{constr.parameters[0].name}}{% else %}{% for param in constr.parameters %}{% if param == constr.parameters|last %}{{param.type|luatocpp}} {{param.name}}{% else %}{{param.type|luatocpp}} {{param.name}}, {% endif %}{% endfor %}{% endif %}{% endif %});
+{% endfor %} {% endif %}
+{% if props is not none %}{% for prop in props %}{% set propname = prop.name.split(".")%}{% if not prop.type == classname %}    {{ prop.type|luatocpp }} {{ propname[1] }};
+{% endif %}{% endfor %}{% endif %}
+};
