@@ -121,7 +121,8 @@ def generate(
         context = {
             "classname": name,
             "constrs": data["constructors"],
-            "props": data["properties"]
+            "props": data["properties"],
+            "methods": data["methods"]
         }
     if filename:
         outpath = Path(dir) / f"{filename}.hpp"
