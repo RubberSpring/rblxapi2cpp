@@ -101,6 +101,10 @@ def generate(
     def luatocpp(input):
         if input == "number":
             return "double"
+        elif input == "boolean":
+            return "bool"
+        elif input == "string":
+            return "char*"
         else:
             return input
 
@@ -115,7 +119,8 @@ def generate(
     if isclass:
         context = {
             "classname": name,
-            "prop": data["properties"]
+            "props": data["properties"],
+            "methods": data["methods"]
         }
     else:
         context = {

@@ -1,0 +1,8 @@
+class {{classname}}
+{
+public:
+{% if props is not none %}{% for prop in props %}{% set propname = prop.name.split(".")%}{% if not prop.type == classname %}    {{ prop.type|luatocpp }} {{ propname[1] }};
+{% endif %}{% endfor %}{% endif %}
+{% if methods is not none %}{% for method in methods %}    {% set methodname = method.name.split(":")[1] %}{{ method.returns[0].type|luatocpp }} {{ methodname }}({% if method.parameters is not none %}{% if method.parameters|length == 1 %}{{ method.parameters[0].type|luatocpp }} {{ method.parameters[0].name }}{% else %}{% for metparam in method.parameters %}{% if metparam == method.parameters|last %}{{ metparam.type|luatocpp }} {{ metparam.name }}{% else %}{{ metparam.type|luatocpp }} {{ metparam.name }}, {% endif %}{% endfor %}{% endif %}{% endif %});
+{% endfor %}{% endif %}
+};
